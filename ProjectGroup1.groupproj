@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{87DE7811-5CD4-4594-B531-50D2B1E71222}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="projecttest.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="package\MyTilesRender.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="projecttest">
+        <MSBuild Projects="projecttest.dproj"/>
+    </Target>
+    <Target Name="projecttest:Clean">
+        <MSBuild Projects="projecttest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="projecttest:Make">
+        <MSBuild Projects="projecttest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MyTilesRender">
+        <MSBuild Projects="package\MyTilesRender.dproj"/>
+    </Target>
+    <Target Name="MyTilesRender:Clean">
+        <MSBuild Projects="package\MyTilesRender.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MyTilesRender:Make">
+        <MSBuild Projects="package\MyTilesRender.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="projecttest;MyTilesRender"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="projecttest:Clean;MyTilesRender:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="projecttest:Make;MyTilesRender:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
